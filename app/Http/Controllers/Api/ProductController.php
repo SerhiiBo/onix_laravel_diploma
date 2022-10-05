@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,6 +32,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): ProductResource
     {
         $createdProduct = Product::create($request->validated());
+        if ($request->has('category')) {
+            foreach (explode(",", $request->category) as $categoryId) {
+               $attachableCategories=Category::findOrFail($categoryId);
+               $createdProduct->categories()->attach($attachableCategories);
+            }
+        }
         return new ProductResource($createdProduct);
     }
 

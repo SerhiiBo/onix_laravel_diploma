@@ -16,8 +16,9 @@ class ProductImageSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 3; $i++) {
+        for ($i = 1; $i < 15; $i++) {
             $product = Product::factory()->create();
+            $product->categories()->id=rand(1,3);
             ProductImage::factory(rand(1, 3))->create([
                 'product_id' => $product->id,
             ]);
