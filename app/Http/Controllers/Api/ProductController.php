@@ -77,4 +77,9 @@ class ProductController extends Controller
         $product->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function add(Product $product)
+    {
+        return new ProductResource($product);
+    }
 }
