@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +33,8 @@ Route::middleware('auth:sanctum')->delete('/cart', [CartController::class, 'clea
 Route::middleware('auth:sanctum')->delete('/cart/{id}', [CartController::class, 'deleteProduct']);
 Route::middleware('auth:sanctum')->post('/products/{id}/cart', [CartController::class, 'addToCart']);
 
-
+//Private routes: Order
+Route::middleware('auth:sanctum')->apiResource('/orders', OrderController::class);
 
 
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
