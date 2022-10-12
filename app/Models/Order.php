@@ -26,4 +26,12 @@ class Order extends Model
         $order->save();
         $request->session()->forget('cart' . Auth::id());
     }
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

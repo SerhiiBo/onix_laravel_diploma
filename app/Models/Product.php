@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+
 
 class Product extends Model
 {
@@ -20,9 +22,10 @@ class Product extends Model
         'name',
         'description',
         'in_stock',
+        'price',
     ];
 
-    public function scopeCategory_ids($query, $category_ids)
+    public function scopeCategory_ids(Builder $query, $category_ids)
     {
         $category_ids = explode(',', trim($category_ids));
         return $query->whereHas('categories', function ($query) use ($category_ids) {
@@ -30,9 +33,14 @@ class Product extends Model
         })->with('categories');
     }
 
-    public function scopeSortByRating($query)
+    public function scopeSortByRating(Builder $product)
     {
-        return $query->orderBy('rating', 'DESC');
+        return $product->orderBy('rating', 'DESC');
+    }
+
+    public function addCategory($product, $category)
+    {
+        return $product->categories()->sync(explode(",", $category));
     }
 
     public function product_images(): HasMany

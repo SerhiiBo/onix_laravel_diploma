@@ -19,8 +19,10 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::when($request->has('category_ids'))->category_ids($request->get('category_ids'))
-            ->when($request->sort_by == 'rating')->sortByRating();
+        $query = Product::when($request->has('category_ids'))
+            ->category_ids($request->get('category_ids'))
+            ->when($request->sort_by == 'rating')
+            ->sortByRating();
         return ProductResource::collection($query->paginate(10));
     }
 
@@ -32,14 +34,11 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): ProductResource
     {
-        $createdProduct = Product::create($request->validated());
-        if ($request->has('category')) {
-            foreach (explode(",", $request->category) as $categoryId) {
-                $attachableCategories = Category::findOrFail($categoryId);
-                $createdProduct->categories()->attach($attachableCategories);
-            }
-        }
-        return new ProductResource($createdProduct);
+        $product = Product::create($request->validated());
+        $request->whenHas('category', function ($category) use ($product) {
+            $product->addCategory($product, $category);
+        });
+        return new ProductResource($product);
     }
 
     /**
@@ -60,9 +59,12 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return ProductResource
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        $product->update($request->validated());
+        $product->update($request->all());
+        $request->whenHas('category', function ($categories) use ($product) {
+            $product->addCategory($categories, $product);
+        });
         return new ProductResource($product);
     }
 

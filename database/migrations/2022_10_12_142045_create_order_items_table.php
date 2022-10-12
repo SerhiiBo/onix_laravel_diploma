@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,15 +13,18 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
+            $table->foreignId('order_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
-            $table->enum('status', ['created', 'processing', 'completed', 'decline']);
-            $table->text('comment')->nullable();
-            $table->string('address');
+            $table->foreignId('product_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
+            $table->decimal('price',9,2);
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -32,6 +36,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_items');
     }
 };
