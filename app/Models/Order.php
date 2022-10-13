@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -24,14 +25,22 @@ class Order extends Model
         $order->comment = $request->comment;
         $order->address = $user_address;
         $order->save();
+
+        $userCart = Session::get('cart' . Auth::id());
+        foreach ($userCart->items as $item) {
+            (new OrderItem)->addItem($order, $item);
+        }
+
         $request->session()->forget('cart' . Auth::id());
     }
 
-    /**
-     * Get the post that owns the comment.
-     */
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function order_items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

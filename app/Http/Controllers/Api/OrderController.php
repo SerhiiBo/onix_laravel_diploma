@@ -20,7 +20,10 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return $order;
+        $query = $order->with('order_items')
+            ->find($order->id);
+        return $query;
+
     }
 
     public function store(Request $request): Order

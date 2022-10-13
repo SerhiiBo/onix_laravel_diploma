@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class Cart
 {
-    public $cartProducts = null;
+    public $items = null;
 
     public function __construct($oldCart)
     {
         if ($oldCart) {
-            $this->cartProducts = $oldCart->cartProducts;
+            $this->items = $oldCart->items;
         }
     }
 
@@ -23,20 +23,20 @@ class Cart
             'product_id' => $productId,
             'quantity' => 0
         ];
-        if ($this->cartProducts) {
-            if (array_key_exists($productId, $this->cartProducts)) {
-                $storedProduct = $this->cartProducts[$productId];
+        if ($this->items) {
+            if (array_key_exists($productId, $this->items)) {
+                $storedProduct = $this->items[$productId];
             }
         }
         $storedProduct['quantity']++;
-        $this->cartProducts[$productId] = $storedProduct;
+        $this->items[$productId] = $storedProduct;
     }
 
     public function delete($productId)
     {
-        if ($this->cartProducts) {
-            if (array_key_exists($productId, $this->cartProducts)) {
-                unset($this->cartProducts[$productId]);
+        if ($this->items) {
+            if (array_key_exists($productId, $this->items)) {
+                unset($this->items[$productId]);
             }
         }
     }
