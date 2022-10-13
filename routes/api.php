@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
@@ -35,6 +36,12 @@ Route::middleware('auth:sanctum')->post('/products/{id}/cart', [CartController::
 
 //Private routes: Order
 Route::middleware('auth:sanctum')->apiResource('/orders', OrderController::class);
+
+//Private routes: Question
+Route::middleware('auth:sanctum')->post('/products/{id}/questions', [QuestionController::class, 'store']);
+Route::middleware('auth:sanctum')->apiResource('/questions', QuestionController::class)->except(['store']);
+
+
 
 
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);

@@ -36,7 +36,7 @@ class ProductController extends Controller
     {
         $product = Product::create($request->validated());
         $request->whenHas('category', function ($category) use ($product) {
-            $product->addCategory($product, $category);
+           return $product->addCategory($product, $category);
         });
         return new ProductResource($product);
     }
@@ -63,7 +63,7 @@ class ProductController extends Controller
     {
         $product->update($request->all());
         $request->whenHas('category', function ($categories) use ($product) {
-            $product->addCategory($categories, $product);
+            return $product->addCategory($categories, $product);
         });
         return new ProductResource($product);
     }

@@ -38,7 +38,7 @@ class Product extends Model
         return $product->orderBy('rating', 'DESC');
     }
 
-    public function addCategory($product, $category)
+    public function addCategory($category, $product)
     {
         return $product->categories()->sync(explode(",", $category));
     }

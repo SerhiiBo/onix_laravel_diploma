@@ -30,7 +30,6 @@ class Order extends Model
         foreach ($userCart->items as $item) {
             (new OrderItem)->addItem($order, $item);
         }
-
         $request->session()->forget('cart' . Auth::id());
     }
 
