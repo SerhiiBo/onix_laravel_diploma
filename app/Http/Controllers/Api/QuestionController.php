@@ -43,10 +43,11 @@ class QuestionController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Question $question
-     * @return Question
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function show(Question $question)
     {
+        $question = Question::with('answers')->find($question->id);
         return $question;
     }
 

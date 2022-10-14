@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Answer extends Model
 {
     use HasFactory;
 
@@ -14,19 +13,13 @@ class Question extends Model
         'text',
     ];
 
-   public function user()
+    public function user()
     {
         return $this->hasOne(User::class);
     }
 
-    public function products()
+    public function question()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasOne(Question::class);
     }
-
-    public function answers()
-    {
-        return $this->hasMany(Answer::class);
-    }
-
 }

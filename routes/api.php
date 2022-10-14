@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
@@ -40,6 +41,11 @@ Route::middleware('auth:sanctum')->apiResource('/orders', OrderController::class
 //Private routes: Question
 Route::middleware('auth:sanctum')->post('/products/{id}/questions', [QuestionController::class, 'store']);
 Route::middleware('auth:sanctum')->apiResource('/questions', QuestionController::class)->except(['store']);
+
+//Private routes: Answer
+Route::middleware('auth:sanctum')->post('/questions/{id}/answer', [AnswerController::class, 'store']);
+Route::middleware('auth:sanctum')->put('/answer/{id}', [AnswerController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('/answer/{id}', [AnswerController::class, 'destroy']);
 
 
 
