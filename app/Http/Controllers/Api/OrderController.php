@@ -29,8 +29,8 @@ class OrderController extends Controller
     public function store(Request $request): Order
     {
         $order = new Order();
-        $user = Auth::user();
-        $order->create($user, $order, $request);
+//        $user = Auth::user();
+        $order->create($order, $request);
         return $order;
     }
 

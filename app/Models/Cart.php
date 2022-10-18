@@ -3,41 +3,26 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Cart
+class Cart extends Model
 {
     public $items = null;
 
-    public function __construct($oldCart)
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'quantity'
+    ];
+
+    public function products()
     {
-        if ($oldCart) {
-            $this->items = $oldCart->items;
-        }
+        return $this->hasMany(Product::class, 'product_id');
     }
 
-    public function add($productId)
+    public function users()
     {
-        $storedProduct = [
-            'user_id' => Auth::id(),
-            'product_id' => $productId,
-            'quantity' => 0
-        ];
-        if ($this->items) {
-            if (array_key_exists($productId, $this->items)) {
-                $storedProduct = $this->items[$productId];
-            }
-        }
-        $storedProduct['quantity']++;
-        $this->items[$productId] = $storedProduct;
-    }
-
-    public function delete($productId)
-    {
-        if ($this->items) {
-            if (array_key_exists($productId, $this->items)) {
-                unset($this->items[$productId]);
-            }
-        }
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

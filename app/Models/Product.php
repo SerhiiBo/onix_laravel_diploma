@@ -48,6 +48,10 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
+    }
     /**
      * The categories that belong to the product.
      */

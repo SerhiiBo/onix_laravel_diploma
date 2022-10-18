@@ -32,7 +32,7 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             'text.required' => 'Поле Text должно быть заполнено',
-            'text.min' => 'Минимальная длинна поля Text - 20',
+            'text.min' => 'Минимальная длинна поля Text - 5',
             'text.max' => 'Максимальаня длинна поля Text - 200',
         ];
     }

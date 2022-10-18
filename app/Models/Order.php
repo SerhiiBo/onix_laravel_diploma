@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Api\CartController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,20 +18,21 @@ class Order extends Model
         'comment',
     ];
 
-    static public function create($user, $order, $request)
+    static public function create($order, $request)
     {
-        $user_address = $user->address_city . ', ' . $user->address_street . ' ' . $user->address_house;
-        $order->user_id = $user->id;
+        $user_address = $request->user()->address_city . ', ' . $request->user()->address_street . ' ' . $request->user()->address_house;
+        $order->user_id = $request->user()->id;
         $order->status = 'created';
         $order->comment = $request->comment;
         $order->address = $user_address;
         $order->save();
 
-        $userCart = Session::get('cart' . Auth::id());
-        foreach ($userCart->items as $item) {
+        $userCart = Cart::where('user_id', $request->user()->id)->get();
+        foreach ($userCart as $item) {
             (new OrderItem)->addItem($order, $item);
         }
-        $request->session()->forget('cart' . Auth::id());
+
+        Cart::where('user_id', $request->user()->id)->delete();
     }
 
     public function users()

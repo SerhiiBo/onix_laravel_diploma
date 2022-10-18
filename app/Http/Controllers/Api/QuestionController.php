@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the questions.
      *
      * @return
      */
@@ -24,7 +24,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created questions in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -40,7 +40,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified questions.
      *
      * @param \App\Models\Question $question
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
@@ -52,7 +52,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified questions in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @param Question $question
@@ -65,7 +65,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified questions from storage.
      *
      * @param int $id
      * @return \Illuminate\Http\Response

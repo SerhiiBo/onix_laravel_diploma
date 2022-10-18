@@ -13,7 +13,7 @@ class OrderItem extends Model
     {
         $this->order_id = $order->id;
         $this->product_id = $item['product_id'];
-        $this->price = Product::find($item['product_id'])->price * $item['quantity'];
+        $this->price = Product::find($item['product_id'])->price;
         $this->quantity = $item['quantity'];
         $this->save();
     }
