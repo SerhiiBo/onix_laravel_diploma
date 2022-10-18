@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Http\Requests\StoreUserRequest;
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
         'address_city',
         'address_street',
@@ -44,9 +44,24 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => Role::class,
     ];
 
     public function orders() {
         return $this->hasMany(Order::class);
+    }
+
+    public function answers() {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role == Role::ADMIN;
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role == Role::USER;
     }
 }

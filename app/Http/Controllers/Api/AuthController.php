@@ -26,7 +26,6 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string'
         ]);
-
         $user = User::where('email', $loginFields['email'])->first();
 
         if (!$user) {
@@ -40,7 +39,6 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
             'message' => 'Authentication success',
             'user' => $user,
@@ -51,7 +49,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
         return [
             'message' => 'You have successfully logged out!'
         ];

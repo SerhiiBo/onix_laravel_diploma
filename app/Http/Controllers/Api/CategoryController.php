@@ -11,7 +11,17 @@ use Illuminate\Http\Response;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'category');
+    }
+
+    /**
+     * Display a listing of the categories.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +32,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created categories in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -34,7 +44,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified categories.
      *
      * @param \App\Models\Category $category
      * @return \Illuminate\Database\Eloquent\Builder
@@ -46,7 +56,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified categories in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Category $category
@@ -59,7 +69,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified categories from storage.
      *
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response

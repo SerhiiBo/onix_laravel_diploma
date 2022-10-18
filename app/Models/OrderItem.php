@@ -12,9 +12,9 @@ class OrderItem extends Model
     public function addItem($order, $item)
     {
         $this->order_id = $order->id;
-        $this->product_id = $item['product_id'];
-        $this->price = Product::find($item['product_id'])->price;
-        $this->quantity = $item['quantity'];
+        $this->product_id = $item->product_id;
+        $this->price = Product::find($item->product_id)->price;
+        $this->quantity = $item->quantity;
         $this->save();
     }
 

@@ -52,11 +52,14 @@ class Product extends Model
     {
         return $this->hasMany(Question::class);
     }
-    /**
-     * The categories that belong to the product.
-     */
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_category');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }

@@ -11,6 +11,15 @@ use Illuminate\Http\Response;
 class QuestionController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Question::class, 'question');
+    }
+    /**
      * Display a listing of the questions.
      *
      * @return
@@ -35,7 +44,6 @@ class QuestionController extends Controller
         $question->user_id = $request->user()->id;
         $question->product_id = $product_id;
         $question->save();
-
         return $question;
     }
 

@@ -40,7 +40,7 @@ class StoreUserRequest extends FormRequest
             'name.required' => 'Поле name должно быть заполнено',
             'email.required' => 'Поле email должно быть заполнено',
             'email.email' => 'Поле должно быть адресом email',
-            'email.uniqe' => 'Email должен быть уникальным',
+            'email.unique' => 'Email должен быть уникальным',
             'password.confirmed' => 'Пароль не соответсвует',
             'address_city.required' => 'Поле город должно быть заполнено',
             'address_street.required' => 'Поле улица должно быть заполнено',

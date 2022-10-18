@@ -3,18 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Order::class, 'order');
+    }
+
     public function index()
     {
-        $order = Order::where('user_id', Auth::id())->get();
+        if (request()->user()->isUser()){
+            $order = Order::where('user_id', Auth::id())->get();
+        } else {
+            $order = Order::paginate(10);
+        }
         return $order;
     }
 
@@ -23,13 +35,11 @@ class OrderController extends Controller
         $query = $order->with('order_items')
             ->find($order->id);
         return $query;
-
     }
 
     public function store(Request $request): Order
     {
         $order = new Order();
-//        $user = Auth::user();
         $order->create($order, $request);
         return $order;
     }
@@ -39,7 +49,6 @@ class OrderController extends Controller
         $request->whenFilled('comment', function ($comment) use ($order) {
             $order->update(['comment' => $comment]);
         });
-
         return $order;
     }
 

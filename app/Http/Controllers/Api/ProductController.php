@@ -13,7 +13,17 @@ use Illuminate\Http\Response;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
+
+    /**
+     * Display a listing of the products.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -27,7 +37,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created products in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -36,13 +46,13 @@ class ProductController extends Controller
     {
         $product = Product::create($request->validated());
         $request->whenHas('category', function ($category) use ($product) {
-           return $product->addCategory($product, $category);
+            return $product->addCategory($product, $category);
         });
         return new ProductResource($product);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified products.
      *
      * @param \App\Models\Product $product
      * @return ProductResource
@@ -53,7 +63,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified products in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Product $product
@@ -69,7 +79,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified products from storage.
      *
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response

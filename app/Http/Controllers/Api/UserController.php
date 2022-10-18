@@ -12,7 +12,17 @@ use Illuminate\Http\Response;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
+    /**
+     * Display a listing of the users.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -23,7 +33,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified users.
      *
      * @param int $user
      * @return UserResource
@@ -34,7 +44,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified users in storage.
      *
      * @param StoreUserRequest $request
      * @param User $user
@@ -42,12 +52,12 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, User $user)
     {
-        $user->update($request->validated());
+        $user->update($request->all());
         return new UserResource($user);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified users from storage.
      *
      * @param User $user
      * @return \Illuminate\Http\Response
