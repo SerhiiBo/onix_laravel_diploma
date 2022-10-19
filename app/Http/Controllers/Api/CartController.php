@@ -23,10 +23,16 @@ class CartController extends Controller
     public function addToCart(Request $request, $productId)
     {
         $this->authorize('create', $request->user());
-        $cart = Cart::updateOrCreate(
-            ['user_id' => $request->user()->id, 'product_id' => $productId],
-            ['quantity' => $request->has('quantity') ? $request->quantity : 1]
-        );
+        $in_stock = Product::find($productId)->in_stock;
+        if ($request->quantity <= $in_stock) {
+            $cart = Cart::updateOrCreate(
+                ['user_id' => $request->user()->id, 'product_id' => $productId],
+                ['quantity' => $request->has('quantity') ? $request->quantity : 1]
+            );
+            Product::find($productId)->decrement('in_stock', $request->quantity);
+        } else {
+            return "Quantity in stock is less. Available to order: {$in_stock}";
+        }
         return $cart;
     }
 
@@ -34,6 +40,8 @@ class CartController extends Controller
     {
         $cart = Cart::where('user_id', $request->user()->id);
         $this->authorize('update', $request->user(), $cart);
+        $productCart = $cart->where('product_id', $productId)->first();
+        Product::find($productId)->increment('in_stock', $productCart->quantity);
         $cart->where('product_id', $productId)->delete();
         return 'Product deleted from cart';
     }
