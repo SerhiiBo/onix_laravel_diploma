@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/answer/{id}', 'update');
         Route::delete('/answer/{id}', 'destroy');
     });
-    
+
     //    Cart routes
     Route::controller(CartController::class)->group(function () {
         Route::post('/products/{id}/cart', 'create');
