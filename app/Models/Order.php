@@ -35,6 +35,16 @@ class Order extends Model
         Cart::where('user_id', $request->user()->id)->delete();
     }
 
+    public function totalPrice()
+    {
+        $orderItems = $this->order_items()->get();
+        $totalPrice = 0;
+        foreach ($orderItems as $orderItem) {
+            $totalPrice += $orderItem->quantity * $orderItem->price;
+        }
+        return $totalPrice;
+    }
+
     public function users()
     {
         return $this->belongsTo(User::class);
@@ -44,4 +54,6 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+
 }

@@ -12,8 +12,8 @@ class CartController extends Controller
 
     public function show(Request $request)
     {
-        $cart = Cart::where('user_id', $request->user()->id)->get();
         $this->authorize('view', Cart::class);
+        $cart = Cart::where('user_id', $request->user()->id)->get();
         return $cart;
     }
 
@@ -53,7 +53,7 @@ class CartController extends Controller
 
     public function destroy(Request $request)
     {
-        $this->authorize('delete',Cart::class);
+        $this->authorize('delete', Cart::class);
         $cart = Cart::where('user_id', $request->user()->id);
 
         foreach ($cart->get() as $cartItem) {

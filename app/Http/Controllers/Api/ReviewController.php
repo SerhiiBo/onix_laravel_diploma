@@ -31,7 +31,7 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -66,11 +66,11 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Review $review
+     * @param \Illuminate\Http\Request $request
+     * @param Review $review
      * @return Review
      */
-    public function update(Request $request,Review $review)
+    public function update(Request $request, Review $review)
     {
         $review->update($request->all());
         return $review;
@@ -79,7 +79,7 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Review $review)

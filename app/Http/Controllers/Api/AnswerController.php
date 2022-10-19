@@ -11,15 +11,7 @@ use Illuminate\Http\Response;
 
 class AnswerController extends Controller
 {
-    /**
-     * Create the controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-//        $this->authorizeResource(Answer::class, 'answer');
-    }
+
     /**
      * Store a newly created answer in storage.
      *
@@ -28,6 +20,7 @@ class AnswerController extends Controller
      */
     public function store(StoreQuestionRequest $request, $question_id)
     {
+        $this->authorize('create', Answer::class);
         $answer = Answer::create($request->validated());
         $answer->user_id = $request->user()->id;
         $answer->question_id = $question_id;
@@ -46,7 +39,7 @@ class AnswerController extends Controller
     public function update(StoreQuestionRequest $request, $answer_id)
     {
         $answer = Answer::find($answer_id);
-        $this->authorize('update', $answer);
+        $this->authorize('update', [Answer::class, $answer]);
         $answer->text = $request->get('text');
         $answer->save();
         return $answer;
@@ -61,7 +54,7 @@ class AnswerController extends Controller
     public function destroy($answer_id)
     {
         $answer = Answer::find($answer_id);
-        $this->authorize('update', $answer);
+        $this->authorize('delete', [Answer::class, $answer]);
         $answer->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }

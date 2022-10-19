@@ -22,7 +22,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        if (request()->user()->isUser()){
+        if (request()->user()->isUser()) {
             $order = Order::where('user_id', Auth::id())->get();
         } else {
             $order = Order::paginate(10);
@@ -50,8 +50,7 @@ class OrderController extends Controller
             $order->update(['comment' => $comment]);
         });
 
-
-        if (auth()->user()->isAdmin() ) {
+        if (auth()->user()->isAdmin()) {
             $request->whenFilled('status', function ($status) use ($order) {
                 $order->update(['status' => $status]);
             });

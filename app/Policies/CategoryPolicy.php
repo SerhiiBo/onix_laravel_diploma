@@ -16,11 +16,9 @@ class CategoryPolicy
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
-        return $user->isAdmin()
-            ? $this->allow()
-            : $this->denyAsNotFound('You do not have permission to do this');
+        return true;
     }
 
     /**

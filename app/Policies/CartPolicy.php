@@ -13,7 +13,7 @@ class CartPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
@@ -24,7 +24,7 @@ class CartPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
@@ -35,7 +35,7 @@ class CartPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @param   $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
@@ -47,8 +47,8 @@ class CartPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Cart  $cart
+     * @param \App\Models\User $user
+     * @param \App\Models\Cart $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user)

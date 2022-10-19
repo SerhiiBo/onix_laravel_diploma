@@ -19,6 +19,7 @@ class QuestionController extends Controller
     {
         $this->authorizeResource(Question::class, 'question');
     }
+
     /**
      * Display a listing of the questions.
      *
