@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Http\Controllers\Api\CartController;
 use App\Models\Answer;
+
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Order;
@@ -13,6 +15,7 @@ use App\Models\Question;
 use App\Models\Review;
 use App\Models\User;
 use App\Policies\AnswerPolicy;
+
 use App\Policies\CartPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\OrderPolicy;

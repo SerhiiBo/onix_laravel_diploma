@@ -43,7 +43,7 @@ class ProductPolicy
     {
         return $user->isAdmin()
             ? $this->allow()
-            : $this->denyAsNotFound('You do not have permission to do this');
+            : $this->deny('You do not have permission to do this');
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductPolicy
     {
         return $user->isAdmin()
             ? $this->allow()
-            : $this->denyAsNotFound('You do not have permission to do this');
+            : $this->deny('You do not have permission to do this');
     }
 
     /**

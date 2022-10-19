@@ -49,6 +49,13 @@ class OrderController extends Controller
         $request->whenFilled('comment', function ($comment) use ($order) {
             $order->update(['comment' => $comment]);
         });
+
+
+        if (auth()->user()->isAdmin() ) {
+            $request->whenFilled('status', function ($status) use ($order) {
+                $order->update(['status' => $status]);
+            });
+        }
         return $order;
     }
 

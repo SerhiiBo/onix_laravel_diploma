@@ -31,10 +31,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 //Private route: Cart
-Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'cart']);
-Route::middleware('auth:sanctum')->delete('/cart', [CartController::class, 'clearCart']);
-Route::middleware('auth:sanctum')->delete('/cart/{id}', [CartController::class, 'deleteProduct']);
-Route::middleware('auth:sanctum')->post('/products/{id}/cart', [CartController::class, 'addToCart']);
+Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'show']);
+Route::middleware('auth:sanctum')->delete('/cart', [CartController::class, 'destroy']);
+Route::middleware('auth:sanctum')->delete('/cart/{productId}', [CartController::class, 'deleteProduct']);
+Route::middleware('auth:sanctum')->post('/products/{id}/cart', [CartController::class, 'create']);
 
 //Private routes: Order
 Route::middleware('auth:sanctum')->apiResource('/orders', OrderController::class);

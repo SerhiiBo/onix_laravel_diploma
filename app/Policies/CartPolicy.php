@@ -11,15 +11,14 @@ class CartPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isUser();
     }
 
     /**
@@ -30,19 +29,19 @@ class CartPolicy
      */
     public function create(User $user)
     {
-        return $user->isUser();
+        return $user->isAdmin() || $user->isUser();
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cart  $cart
+     * @param   $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Cart $cart)
+    public function update(User $user, $productCart)
     {
-        return $user->id == $cart->user_id;
+        return $user->isAdmin() || $user->isUser() && $user->id === $productCart->user_id;
     }
 
     /**
@@ -52,8 +51,9 @@ class CartPolicy
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Cart $cart)
+    public function delete(User $user)
     {
-        return $user->id == $cart->user_id;
+        return $user->isAdmin() || $user->isUser();
     }
+
 }

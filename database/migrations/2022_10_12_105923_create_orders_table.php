@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -18,7 +19,7 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
-            $table->enum('status', ['created', 'processing', 'completed', 'decline']);
+            $table->enum('status', ['created', 'processed', 'paid', 'completed']);
             $table->text('comment')->nullable();
             $table->string('address');
             $table->timestamps();
@@ -32,6 +33,7 @@ return new class extends Migration {
      */
     public function down()
     {
+
         Schema::dropIfExists('orders');
     }
 };
