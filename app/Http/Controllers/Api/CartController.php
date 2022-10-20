@@ -14,6 +14,7 @@ class CartController extends Controller
     {
         $this->authorize('view', Cart::class);
         $cart = Cart::where('user_id', $request->user()->id)->get();
+
         return $cart;
     }
 

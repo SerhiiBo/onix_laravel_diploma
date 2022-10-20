@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
-use App\Mail\UserCreatedMail;
+use App\Events\OrderStatusChanged;
+use App\Mail\OrderStatusChangedMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailRegisteredUserListener
+class SendEmailOrderStatusChangedListener
 {
     /**
      * Create the event listener.
@@ -23,12 +23,12 @@ class SendEmailRegisteredUserListener
     /**
      * Handle the event.
      *
-     * @param \App\Events\UserRegistered $event
+     * @param object $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(OrderStatusChanged $event)
     {
-        Mail::to($event->user->email)
-            ->send(new UserCreatedMail($event->user));
+        Mail::to($event->order->users->email)
+            ->send(new OrderStatusChangedMail($event->order));
     }
 }

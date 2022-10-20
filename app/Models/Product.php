@@ -62,4 +62,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'order_items');
+    }
 }

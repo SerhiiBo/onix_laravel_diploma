@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\OrderCreated;
+use App\Events\OrderStatusChanged;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -41,20 +43,23 @@ class OrderController extends Controller
     {
         $order = new Order();
         $order->create($order, $request);
+        event(new OrderCreated($order->load(['order_items', 'users', 'products'])));
         return $order;
     }
 
     public function update(Request $request, Order $order)
     {
+        if (auth()->user()->isAdmin()) {
+            $request->whenFilled('status', function ($status) use ($order) {
+                $order->update(['status' => $status]);
+                event(new OrderStatusChanged($order->load(['order_items', 'users'])));
+            });
+        }
         $request->whenFilled('comment', function ($comment) use ($order) {
             $order->update(['comment' => $comment]);
         });
 
-        if (auth()->user()->isAdmin()) {
-            $request->whenFilled('status', function ($status) use ($order) {
-                $order->update(['status' => $status]);
-            });
-        }
+
         return $order;
     }
 

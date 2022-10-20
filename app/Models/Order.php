@@ -16,12 +16,13 @@ class Order extends Model
 
     protected $fillable = [
         'comment',
+        'status'
     ];
 
     static public function create($order, $request)
     {
-        $user_address = $request->user()->address_city . ', ' . $request->user()->address_street . ' ' . $request->user()->address_house;
-        $order->user_id = $request->user()->id;
+        $user_address = auth()->user()->address_city . ', ' . auth()->user()->address_street . ' ' . auth()->user()->address_house;
+        $order->user_id = auth()->user()->id;
         $order->status = 'created';
         $order->comment = $request->comment;
         $order->address = $user_address;
@@ -47,7 +48,7 @@ class Order extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function order_items(): HasMany
@@ -55,5 +56,10 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'order_items')
+            ->withPivot('quantity', 'price');
 
+    }
 }

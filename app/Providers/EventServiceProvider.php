@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\OrderCreated;
+use App\Events\OrderStatusChanged;
 use App\Events\UserRegistered;
+use App\Listeners\SendEmailOrderCreatedListener;
+use App\Listeners\SendEmailOrderStatusChangedListener;
 use App\Listeners\SendEmailRegisteredUserListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +26,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserRegistered::class => [
             SendEmailRegisteredUserListener::class
+        ],
+        OrderStatusChanged::class => [
+            SendEmailOrderStatusChangedListener::class
+        ],
+        OrderCreated::class => [
+            SendEmailOrderCreatedListener::class
         ],
     ];
 

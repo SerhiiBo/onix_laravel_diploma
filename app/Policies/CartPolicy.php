@@ -18,7 +18,7 @@ class CartPolicy
      */
     public function view(User $user)
     {
-        return $user->isAdmin() || $user->isUser();
+        return $user->isUser();
     }
 
     /**
@@ -41,7 +41,7 @@ class CartPolicy
      */
     public function update(User $user, $productCart)
     {
-        return $user->isAdmin() || $user->isUser() && $user->id === $productCart->user_id;
+        return $user->isUser() && $user->id === $productCart->user_id;
     }
 
     /**
