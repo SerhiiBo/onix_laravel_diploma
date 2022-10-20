@@ -9,6 +9,17 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Review $review) {
+            $avgRating = (integer) Review::where('product_id', $review->product_id)->avg('rating');
+            $product = Product::firstWhere('id', $review->product_id);
+            $product->update(['rating' => $avgRating]);
+        });
+    }
+
     protected $fillable = [
         'text',
         'rating',
@@ -23,6 +34,6 @@ class Review extends Model
 
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

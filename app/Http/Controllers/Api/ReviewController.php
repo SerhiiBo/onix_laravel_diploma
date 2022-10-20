@@ -47,7 +47,6 @@ class ReviewController extends Controller
             'text' => $review['text'],
             'rating' => $review['rating'],
         ]);
-//        $review->save();
         return $review;
     }
 

@@ -23,6 +23,7 @@ class Product extends Model
         'description',
         'in_stock',
         'price',
+        'rating'
     ];
 
     public function scopeCategory_ids(Builder $query, $category_ids)
