@@ -58,7 +58,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAdmin()
+        return $user->isAdmin() || $user->id == $model->id
             ? $this->allow()
             : $this->denyAsNotFound('You do not have permission to do this');
     }

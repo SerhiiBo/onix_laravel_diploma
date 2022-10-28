@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,9 +15,14 @@ class PaymentController extends Controller
     {
         $this->authorize('pay-order', $order);
 
-        $user = auth()->user();
-        $stripeCharge = auth()->user()->charge(
-            $order->totalPrice(), $request->paymentMethodId
+        $priceToPay=$order->totalPrice()*100;
+//        $user = auth()->user();
+        $user = User::where('id', $order->user_id)->first();
+
+        $user->createOrGetStripeCustomer();
+
+        $stripeCharge = $user->charge(
+            $priceToPay, 'card'
         );
 
         $payment = Payment::create([
@@ -27,8 +33,10 @@ class PaymentController extends Controller
             'status' => $stripeCharge->status,
         ]);
 
+
         if ($payment->status == 'succeeded') {
             $order->update(['status' => 'paid']);
         }
     }
+
 }

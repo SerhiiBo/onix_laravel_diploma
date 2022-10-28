@@ -8,10 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
+use function Illuminate\Events\queueable;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Billable;
+
+    protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
 
     /**
      * The attributes that are mass assignable.

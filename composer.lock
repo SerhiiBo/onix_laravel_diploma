@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b41e39d4dc1c6f8783fbb61925c274c0",
+    "content-hash": "165a565a128b8aff0311e8e5edff6659",
     "packages": [
         {
             "name": "brick/math",
@@ -899,16 +899,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v14.2.1",
+            "version": "v14.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "44f6620fd31935c9bd8be716a66d38b7df912a49"
+                "reference": "077b28b155d42285985782ae0c5efbc5bf9c42aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/44f6620fd31935c9bd8be716a66d38b7df912a49",
-                "reference": "44f6620fd31935c9bd8be716a66d38b7df912a49",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/077b28b155d42285985782ae0c5efbc5bf9c42aa",
+                "reference": "077b28b155d42285985782ae0c5efbc5bf9c42aa",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2022-09-27T21:32:32+00:00"
+            "time": "2022-10-25T16:33:06+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3010,16 +3010,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v9.7.0",
+            "version": "v9.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "13e8ab3c7fa6b146cb94618000fe01aabaf4158f"
+                "reference": "5a55767326e77dac8a0f57022d27533beeafc197"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/13e8ab3c7fa6b146cb94618000fe01aabaf4158f",
-                "reference": "13e8ab3c7fa6b146cb94618000fe01aabaf4158f",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/5a55767326e77dac8a0f57022d27533beeafc197",
+                "reference": "5a55767326e77dac8a0f57022d27533beeafc197",
                 "shasum": ""
             },
             "require": {
@@ -3065,9 +3065,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v9.7.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v9.8.0"
             },
-            "time": "2022-10-13T23:12:16+00:00"
+            "time": "2022-10-20T23:29:24+00:00"
         },
         {
             "name": "symfony/console",
@@ -5941,6 +5941,67 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "91ae7b749e9b3562355a78f945b4ee71153153f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/91ae7b749e9b3562355a78f945b4ee71153153f6",
+                "reference": "91ae7b749e9b3562355a78f945b4ee71153153f6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^9.21",
+                "illuminate/filesystem": "^9.21",
+                "illuminate/support": "^9.21",
+                "illuminate/validation": "^9.21",
+                "php": "^8.0.2"
+            },
+            "conflict": {
+                "laravel/framework": "<9.19.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2022-09-27T13:30:11+00:00"
         },
         {
             "name": "laravel/pint",

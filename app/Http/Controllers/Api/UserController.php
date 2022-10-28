@@ -50,7 +50,7 @@ class UserController extends Controller
      * @param User $user
      * @return UserResource
      */
-    public function update(StoreUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $user->update($request->all());
         return new UserResource($user);
